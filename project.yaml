@@ -9,7 +9,7 @@ runner:
     name: '@subql/query'
     version: '*'
 description: This SubQuery project can be use as a starting point for Kusama network
-repository: 'https://github.com/subquery/kusama-subql-starters'
+repository: 'https://github.com/JayJay1024/crab-nft-subql.git'
 schema:
   file: ./schema.graphql
 network:
@@ -18,16 +18,13 @@ network:
   dictionary: 'https://api.subquery.network/sq/subquery/kusama-dictionary'
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 1
+    startBlock: 11415420
     mapping:
       file: ./dist/index.js
       handlers:
-        - handler: handleBlock
-          kind: substrate/BlockHandler
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: balances
-            method: Deposit
-        - handler: handleCall
+        - handler: handleSystemRemarkCall
           kind: substrate/CallHandler
+          filter:
+            module: system
+            method: remark
+            success: true
